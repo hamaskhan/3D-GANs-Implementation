@@ -59,7 +59,7 @@ def build_discriminator():
     dis_model = Model(inputs=[dis_input_layer], outputs=[a])
     return dis_model
 
-    def build_generator():
+def build_generator():
     """
     Create a Generator Model with hyperparameters values defined as follows
     """
@@ -90,3 +90,11 @@ def build_discriminator():
 
     gen_model = Model(inputs=[input_layer], outputs=[a])
     return gen_model
+
+def write_log(callback, name, value, batch_no):
+    summary = tf.Summary()
+    summary_value = summary.value.add()
+    summary_value.simple_value = value
+    summary_value.tag = name
+    callback.writer.add_summary(summary, batch_no)
+    callback.writer.flush()
